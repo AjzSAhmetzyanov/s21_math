@@ -1,0 +1,214 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <wchar.h>
+#include <limits.h>
+#include <math.h>
+
+#include "s21_math.h"
+
+
+#test s21_fabs_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i <= 18; i++) {
+            y1 = fabs(i * M_PI / 18.0);
+            y2 = s21_fabs(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+    }
+#test s21_fabs_test2
+    ck_assert_ldouble_nan(fabs(NAN)); 
+    ck_assert_ldouble_nan(s21_fabs(NAN)); 
+
+#test s21_floor_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i <= 18; i++) {
+            y1 = floor(i * M_PI / 18.0);
+            y2 = s21_floor(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+    }
+#test s21_floor_test2
+    ck_assert_ldouble_nan(floor(NAN));
+    ck_assert_ldouble_nan(s21_floor(NAN));
+
+#test s21_ceil_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i <= 18; i++) {
+            y1 = ceil(i * M_PI / 18.0);
+            y2 = s21_ceil(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+    }
+#test s21_ceil_test2
+    ck_assert_ldouble_nan(ceil(NAN));
+    ck_assert_ldouble_nan(s21_ceil(NAN));
+
+#test s21_ceil_test3
+    double y1, y2, tol =0.000001;
+    y1 = ceil(0.0);
+    y2 = s21_ceil(0.0);
+    ck_assert_ldouble_eq_tol(y1, y2,tol);
+
+#test s21_fmod_test1
+    double y1, y2, tol = 0.000001;
+    for (int i = -18; i <= 18 && i != 0; i++) {
+        for (int j = 18; j >= -18 && j != 0; j--) {
+            y1 = fmod(i * M_PI / 18.0, j);
+            y2 = s21_fmod(i * M_PI / 18.0, j);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);}
+        }
+
+#test s21_fmod_test2
+    ck_assert_ldouble_nan(fmod(NAN,NAN));
+    ck_assert_ldouble_nan(s21_fmod(NAN,NAN));
+
+#test s21_pow_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -10; i <= 10 && i != 0; i++) {
+        for (int j = 10; j >= -10 && j != 0;j--){
+            y1 = pow(i * M_PI / 18.0, j);
+            y2 = s21_pow(i * M_PI / 18.0, j);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);}
+    }
+#test s21_pow_test2
+    ck_assert_ldouble_nan(s21_pow(NAN, NAN));
+    ck_assert_ldouble_eq(s21_pow(NAN, 0), 1);
+    ck_assert_ldouble_eq(s21_pow(1, NAN), 1);
+
+#test s21_exp_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i <= 18; i++) {
+            y1 = exp(i * M_PI / 18.0);
+            y2 = s21_exp(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+    }
+#test s21_exp_test2
+    ck_assert_ldouble_nan(exp(NAN));
+    ck_assert_ldouble_nan(s21_exp(NAN));
+
+#test s21_sqrt_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i < 0; i++) {
+            y2 = s21_sqrt(i * M_PI / 18.0);
+            ck_assert_ldouble_nan(y2);
+    }
+    for (int i = 1; i <= 18; i++) {
+            y1 = sqrt(i * M_PI / 18.0);
+            y2 = s21_sqrt(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+    }
+#test s21_sqrt_test2
+    ck_assert_ldouble_nan(sqrt(NAN));
+    ck_assert_ldouble_nan(s21_sqrt(NAN));
+
+#test s21_log_test1
+    double y1, y2, tol =0.000001;
+    for (int i = 1; i <= 18; i++) {
+            y1 = log(i * M_PI / 18.0);
+            y2 = s21_log(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+    }
+#test s21_log_test2
+    ck_assert_ldouble_nan(log(NAN));
+    ck_assert_ldouble_nan(s21_log(NAN));
+
+#test s21_log_test3
+    ck_assert_ldouble_infinite(log(0));
+    ck_assert_ldouble_infinite(s21_log(0));
+
+#test s21_log_test4
+    ck_assert_ldouble_nan(log(-1));
+    ck_assert_ldouble_nan(s21_log(-1));
+
+
+#test s21_sin_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i <= 18; i++) {
+            y1 = sin(i * M_PI / 18.0);
+            y2 = s21_sin(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+    }
+#test s21_sin_test2
+    ck_assert_ldouble_nan(sin(NAN));
+    ck_assert_ldouble_nan(s21_sin(NAN));
+#test s21_sin_test3
+    ck_assert_ldouble_nan(s21_sin(INFINITY));
+    
+#test s21_cos_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i <= 18; i++) {
+            y1 = cos(i * M_PI / 18.0);
+            y2 = s21_cos(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+        }
+#test s21_cos_test2
+    ck_assert_ldouble_nan(cos(NAN));
+    ck_assert_ldouble_nan(s21_cos(NAN));
+
+#test s21_tan_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i < -10; i++) {
+            y1 = tan(i * M_PI / 18.0);
+            y2 = s21_tan(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+        }
+
+#test s21_tan_test2
+    ck_assert_ldouble_nan(tan(NAN));
+    ck_assert_ldouble_nan(s21_tan(NAN));
+
+#test s21_asin_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i < -5; i++) {
+            
+            y2 = s21_asin(i * M_PI / 18.0);
+            ck_assert_ldouble_nan(y2);
+    }
+    for (int i = -5; i < 6; i++) {
+            y1 = asin(i * M_PI / 18.0);
+            y2 = s21_asin(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+    }
+#test s21_asin_test2
+    ck_assert_ldouble_nan(asin(INFINITY));
+    ck_assert_ldouble_nan(s21_asin(INFINITY));
+    ck_assert_ldouble_nan(s21_asin(-7));
+    ck_assert_ldouble_nan(s21_asin(7));
+
+
+
+#test s21_asin_test3
+    ck_assert_ldouble_eq(s21_asin(0), 0);
+    
+#test s21_acos_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i < -6; i++) {
+            y1 = acos(i * M_PI / 18.0);
+            y2 = s21_acos(i * M_PI / 18.0);
+            ck_assert_ldouble_nan(y2);
+        }
+    for (int i = -5; i <= 5; i++) {
+            y1 = acos(i * M_PI / 18.0);
+            y2 = s21_acos(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+        }
+
+#test s21_acos_test2
+    ck_assert_ldouble_nan(acos(NAN));
+    ck_assert_ldouble_nan(s21_acos(NAN));
+    ck_assert_ldouble_nan(s21_acos(-7));
+    ck_assert_ldouble_nan(s21_acos(7));
+
+#test s21_acos_test3
+    ck_assert_ldouble_eq(s21_acos(1),0);
+    
+
+#test s21_atan_test1
+    double y1, y2, tol =0.000001;
+    for (int i = -18; i <18 ; i++) {
+            y1 = atan(i * M_PI / 18.0);
+            y2 = s21_atan(i * M_PI / 18.0);
+            ck_assert_ldouble_eq_tol(y1, y2,tol);
+        }
+
+#test s21_atan_test2
+    ck_assert_ldouble_nan(atan(NAN));
+    ck_assert_ldouble_nan(s21_atan(NAN));
